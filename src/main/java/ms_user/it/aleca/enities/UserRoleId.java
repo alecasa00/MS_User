@@ -1,28 +1,23 @@
 package ms_user.it.aleca.enities;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class UserRoleId implements Serializable {
 
     private Long userId;
     private Long roleId;
-
-    public UserRoleId() {}
-
-    public UserRoleId(Long userId, Long roleId) {
-        this.userId = userId;
-        this.roleId = roleId;
-    }
-
-    // getter/setter
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
-
-    public Long getRoleId() { return roleId; }
-    public void setRoleId(Long roleId) { this.roleId = roleId; }
 
     // hashCode / equals obbligatori per PK composita
     @Override
