@@ -1,4 +1,4 @@
-package it.aleca.ms_user;
+package ms_user.it.aleca;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
