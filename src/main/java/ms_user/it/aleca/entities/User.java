@@ -1,4 +1,4 @@
-package ms_user.it.aleca.enities;
+package ms_user.it.aleca.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
