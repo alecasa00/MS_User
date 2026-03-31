@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ms_user.it.aleca.enums.UserStatusEnum;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
@@ -32,8 +33,8 @@ public class User {
     @Column(name = "password" , length = 255 , nullable = false)
     private String password;
 
-    @Column(name = "active" , unique = true , nullable = false)
-    private Boolean active;
+    @Column(name = "status" , unique = true , nullable = false)
+    private UserStatusEnum status;
 
     @Column(name = "creationDate", nullable = false, updatable = false)
     private Instant creationDate;
@@ -41,16 +42,7 @@ public class User {
     @Column(name = "lastModifiedDate" )
     private Instant lastModifiedDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"),
-            uniqueConstraints = @UniqueConstraint(
-                    name = "uk_user_role",
-                    columnNames = {"user_id", "role_id"}
-            )
-    )
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<UserRole> roles = new HashSet<>();
 
@@ -83,6 +75,15 @@ public class User {
     @PreUpdate
     protected void onUpdate() {
         this.lastModifiedDate = Instant.now();
+    }
+
+    public void addRole(Role role) {
+        UserRole userRole = new UserRole(this, role);
+        roles.add(userRole);
+    }
+
+    public void removeRole(Role role) {
+        roles.removeIf(ur -> ur.getRole().equals(role));
     }
 
 }

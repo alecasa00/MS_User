@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ms_user.it.aleca.entities.id.UserRoleId;
 
 @Entity
 @Table(
@@ -37,6 +38,5 @@ public class UserRole {
     public UserRole(User user, Role role) {
         this.user = user;
         this.role = role;
-        this.id = new UserRoleId(user.getId(), role.getId());
     }
 }
