@@ -1,22 +1,25 @@
 package ms_user.it.aleca.controller;
 
 import ms_user.it.aleca.dto.AddUserRequest;
+import ms_user.it.aleca.dto.out.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
 @RequestMapping("api/v1/users")
 public interface UserController {
 
+    //TODO : only admin can access these methods
+
 
     @GetMapping("/{userId}")
-    ResponseEntity<Object> getUser(@PathVariable int userId);
+    ResponseEntity<UserDto> getUserById(@PathVariable int userId);
 
-    @GetMapping("/{page}/{size}")
-    ResponseEntity<Object> getUserList(int page ,int size);
+    @GetMapping()
+    ResponseEntity<List<UserDto>> getUserListPaginated(@RequestParam int page , @RequestParam int size);
 
-    //TODO : only admin can create new users
     @PostMapping
-    ResponseEntity<Object> addNewUser(AddUserRequest userDto);
+    ResponseEntity<Object> addNewUser(@RequestBody AddUserRequest userDto);
 
 }
