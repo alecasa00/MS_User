@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -21,5 +24,8 @@ public class Role {
 
     @Column(name = "descrizione")
     private String descrizione;
+
+    @OneToMany(mappedBy = "role")
+    private Set<UserRole> users = new HashSet<>();
 
 }

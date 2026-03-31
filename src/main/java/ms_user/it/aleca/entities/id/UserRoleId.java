@@ -1,4 +1,4 @@
-package ms_user.it.aleca.entities;
+package ms_user.it.aleca.entities.id;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

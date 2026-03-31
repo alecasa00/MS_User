@@ -3,6 +3,7 @@ package ms_user.it.aleca.controller.impl;
 import ms_user.it.aleca.controller.UserController;
 import ms_user.it.aleca.dto.AddUserRequest;
 import ms_user.it.aleca.dto.out.UserDto;
+import ms_user.it.aleca.entities.User;
 import ms_user.it.aleca.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +50,14 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<Object> addNewUser(AddUserRequest userDto) {
-        return null;
+    public ResponseEntity<Object> addNewUser(AddUserRequest addUserRequest) {
+
+        Long userId = userService.addNewUser(addUserRequest);
+
+        if (userId == null ) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+        return ResponseEntity.ok().body(userId);
     }
 }
